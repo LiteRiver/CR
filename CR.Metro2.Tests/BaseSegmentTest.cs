@@ -12,7 +12,7 @@ namespace CR.Metro2.Tests {
         }
 
         [TestMethod]
-        public void TestReadFrom() {
+        public void TestParse() {
             var line = "14301052220171239520WESTBON2636370        22705                         I0003262017000000000000017800045M00000047200000000011 0BBBBBBBBBBBBBBBBBBBBBBB    00001747200000000000000000005222017000000000000000004262017F                1ZHAO                     ZIXI                                     0000000000424199720633070661  US688 110TH AVENUE NORTHEAST      APT S1204                       BELLEVUE            WA98004     RJ1                                                                                                  J2                                                                                                                                                                                                      J2                                                                                                                                                                                                      J2                                                                                                                                                                                                      K2                                K3                                      K4                            L1                                                    N1                                                                                                                                                ";
 
             var seg = new BaseSegment();

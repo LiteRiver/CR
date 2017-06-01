@@ -12,7 +12,7 @@ namespace CR.Metro2.Tests {
         }
 
         [TestMethod]
-        public void TestWriteTo() {
+        public void TestParse() {
             var header = "1430HEADER                      DBOOX          05222017052220170317201103172011WESTBON, INC.                           320 W OHIO STREET,#300,CHICAGO,IL,606540000                                                     8008406604HUTCHINS SYSTEMS, INC.                  9.12                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ";
             var activeDate = new DateTime(2017, 5, 22);
             var dateCreated = activeDate;
