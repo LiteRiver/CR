@@ -1,5 +1,8 @@
-﻿using System;
+﻿using CR.Metro2;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,8 +21,23 @@ namespace CR {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
+        private Metro2File m_metro2File = new Metro2File();
+
         public MainWindow() {
             InitializeComponent();
+        }
+
+        private void Import_Click(object sender, RoutedEventArgs e) {
+            var dlg = new OpenFileDialog();
+            var ret = dlg.ShowDialog();
+            if (ret == true) {
+                using (var stream = new FileStream(dlg.FileName, FileMode.Open)) {
+                    m_metro2File.Parse(stream);
+                }
+
+                dgMetro2.ItemsSource = m_metro2File.Bases;
+                
+            }
         }
     }
 }

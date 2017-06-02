@@ -5,8 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CR"
         mc:Ignorable="d"
-        Title="Westbon Credit Reporter" Height="600" Width="800">
+        Title="Westbon Credit Reporter" Height="600" Width="800" WindowStartupLocation="CenterScreen" Icon="app.ico">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <DataGrid Grid.Row="0" Grid.Column="0" x:Name="dgMetro2" AutoGenerateColumns="False" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding [RDW]}" Header="RDW" />
+                <DataGridTextColumn Binding="{Binding [Processing Indicator]}" Header="Processing Indicator" />
+                <DataGridTextColumn Binding="{Binding [Time Stamp]}" Header="Time Stamp" />
+                <DataGridTextColumn Binding="{Binding [Reserved-1]}" Header="Reserved-1" />
+                <DataGridTextColumn Binding="{Binding [Identification Number]}" Header="Identification Number" />
+                <DataGridTextColumn Binding="{Binding [Cycle Identifier]}" Header="Cycle Identifier" />
+                <DataGridTextColumn Binding="{Binding [Consumer Account Number]}" Header="Consumer Account Number" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Margin="5" Padding="6,2" Click="Import_Click" >Import</Button>
     </Grid>
 </Window>

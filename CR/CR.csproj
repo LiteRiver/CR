@@ -111,6 +111,13 @@
       <Project>{c703f704-7465-4eef-860e-161c83c1970d}</Project>
       <Name>CR.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CR.Metro2\CR.Metro2.csproj">
+      <Project>{1860556B-F65A-4F47-B564-6AB78C632165}</Project>
+      <Name>CR.Metro2</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="app.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
