@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CR.Metro2 {
     public class TrailerSegment : Segment {
-        public TrailerSegment() : base() {
+        public TrailerSegment() : base() {            
+        }
+
+        protected override void DefineFields() {
             DefineField(new NumericField("RDW", 4) { DefaultValue = 1430 });
             DefineField(new AlphabeticField("Record Identifier", 7) { DefaultValue = "TRAILER" });
             DefineField(new NumericField("Total Base Records", 9));

@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CR.Metro2 {
     public class HeaderSegment : Segment {
-        public HeaderSegment() : base() {
+        public HeaderSegment() : base() {            
+        }
+
+        protected override void DefineFields() {
             DefineField(new NumericField("RDW", 4) { DefaultValue = 1430 });
             DefineField(new AlphabeticField("Record Identifier", 6) { DefaultValue = "HEADER" });
             DefineField(new AlphabeticField("Cycle Identifier", 2));

@@ -4,6 +4,8 @@ using System;
 namespace CR.Metro2 {
     public class NumericField : FieldBase {
 
+        public override object DefaultValue { get => base.DefaultValue ?? (long)0; set => base.DefaultValue = value; }
+
         public NumericField(string name, int len) : base(name, len) {
         }
 
@@ -25,7 +27,7 @@ namespace CR.Metro2 {
         }
 
         protected override object ParseCore(string val) {
-            long n;
+            long n = 0;
             Guards.Validate(long.TryParse(val, out n), "val", string.Format("[{0}] val is not a integer", Name));
             
             return n;

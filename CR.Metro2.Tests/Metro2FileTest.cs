@@ -26,5 +26,29 @@ namespace CR.Metro2.Tests {
             }
             
         }
+
+        [TestMethod]
+        public void TestUpdateSummary() {
+            var filePath = Path.Combine(Env.GetCurrentDirectory(), "NBOOX.TXT");
+
+            var metro2 = new Metro2File();
+
+            using (var fStream = new FileStream(filePath, FileMode.Open)) {
+                metro2.Parse(fStream);
+            }
+
+            var totalBaseRecords = Convert.ToInt64(metro2.Trailer["Total Base Records"]);
+
+            metro2.Bases.RemoveAt(0);
+
+            metro2.UpdateSummary();
+
+
+            Assert.IsTrue(Convert.ToInt64(metro2.Trailer["Total Base Records"]) == totalBaseRecords - 1);
+
+            var m = new Metro2File();
+
+            var x = m.Trailer["Total Base Records"];
+        }
     }
 }

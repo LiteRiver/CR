@@ -5,7 +5,7 @@ using System.Globalization;
 namespace CR.Metro2 {
     public class DateField : FieldBase {
         private const string NULL = "00000000";
-        private const string FORMAT = "MMddyyyy";
+        public const string FORMAT = "MMddyyyy";
 
         public DateField(string name) : base(name, NULL.Length) {
         }

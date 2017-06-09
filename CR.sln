@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR.Metro2", "CR.Metro2\CR.M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR.Metro2.Tests", "CR.Metro2.Tests\CR.Metro2.Tests.csproj", "{11A142F7-6BE0-401D-838A-8CB3C78769F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR.Controls", "CR.Controls\CR.Controls.csproj", "{1C687725-5736-430D-908C-C768A3CEA4BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{11A142F7-6BE0-401D-838A-8CB3C78769F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11A142F7-6BE0-401D-838A-8CB3C78769F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11A142F7-6BE0-401D-838A-8CB3C78769F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C687725-5736-430D-908C-C768A3CEA4BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C687725-5736-430D-908C-C768A3CEA4BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C687725-5736-430D-908C-C768A3CEA4BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C687725-5736-430D-908C-C768A3CEA4BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

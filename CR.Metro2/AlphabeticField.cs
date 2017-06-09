@@ -2,6 +2,8 @@
 
 namespace CR.Metro2 {
     public class AlphabeticField : FieldBase {
+        public override object DefaultValue { get => base.DefaultValue ?? string.Empty; set => base.DefaultValue = value; }
+
         public AlphabeticField(string name, int len): base(name, len) { }
 
         public override string Format(object val) {

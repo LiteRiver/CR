@@ -44,11 +44,14 @@
     <Compile Include="BaseSegment.cs" />
     <Compile Include="DateField.cs" />
     <Compile Include="FieldBase.cs" />
+    <Compile Include="FieldCollection.cs" />
     <Compile Include="HeaderSegment.cs" />
     <Compile Include="IField.cs" />
     <Compile Include="Metro2File.cs" />
+    <Compile Include="Metro2Options.cs" />
     <Compile Include="MonetaryField.cs" />
     <Compile Include="NumericField.cs" />
+    <Compile Include="Option.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Segment.cs" />
     <Compile Include="TimestampField.cs" />

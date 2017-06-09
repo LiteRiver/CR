@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CR.Metro2 {
     public class BaseSegment : Segment {
-        public BaseSegment() : base() {
+        public BaseSegment() : base() {            
+        }
+
+        protected override void DefineFields() {
             DefineField(new NumericField("RDW", 4) { DefaultValue = 1430 });
             DefineField(new NumericField("Processing Indicator", 1));
             DefineField(new TimestampField("Time Stamp"));

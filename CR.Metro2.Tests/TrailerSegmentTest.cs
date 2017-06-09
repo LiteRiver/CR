@@ -17,6 +17,8 @@ namespace CR.Metro2.Tests {
 
             var seg = new TrailerSegment();
 
+            Assert.IsTrue((long)seg["Total Telephone Numbers (All Segments)"] == 0);
+
             seg.Parse(line);
 
             Assert.AreEqual("TRAILER", seg["Record Identifier"], "Record Identifier");

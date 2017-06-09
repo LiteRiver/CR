@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,7 @@ namespace CR {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
-        private Metro2File m_metro2File = new Metro2File();
+        private Metro2FileViewModel m_metro2File = new Metro2FileViewModel();
 
         public MainWindow() {
             InitializeComponent();
@@ -35,9 +36,16 @@ namespace CR {
                     m_metro2File.Parse(stream);
                 }
 
-                dgMetro2.ItemsSource = m_metro2File.Bases;
-                
+                DataContext = m_metro2File;
             }
+        }
+
+        private void dgMetro2_LoadingRow(object sender, DataGridRowEventArgs e) {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+        }
+
+        private void Export_Click(object sender, RoutedEventArgs e) {
+            m_metro2File.HeaderSegment["RDW"] = 5678;
         }
     }
 }

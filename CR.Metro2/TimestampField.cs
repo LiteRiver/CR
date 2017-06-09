@@ -5,7 +5,7 @@ using System.Globalization;
 namespace CR.Metro2 {
     public class TimestampField : FieldBase {
         private const string NULL = "00000000000000";
-        private const string FORMAT = "MMddyyyyHHmmss";
+        public const string FORMAT = "MMddyyyyHHmmss";
 
         public TimestampField(string name) : base(name, NULL.Length) {
         }

@@ -10,8 +10,15 @@ using System.Threading.Tasks;
 
 namespace CR.Metro2 {
     public abstract class Segment {
-        private List<IField> m_schema = new List<IField>();
+        private FieldCollection m_schema = new FieldCollection();
         private Dictionary<string, object> m_data = new Dictionary<string, object>();
+
+        public Segment() {
+            DefineFields();
+            InitData();
+        }
+
+        protected abstract void DefineFields();
 
         private bool m_dirty = false;
         private int m_length = 0;
@@ -22,12 +29,9 @@ namespace CR.Metro2 {
                     m_length = m_schema.Sum(f => f.Length);
                     m_dirty = false;
                 }
-                
+
                 return m_length;
             }
-        }
-
-        public Segment() {
         }
 
         public override string ToString() {
@@ -41,6 +45,7 @@ namespace CR.Metro2 {
         }
 
         public virtual void Parse(string line) {
+            ClearData();
             var i = 0;
             foreach (dynamic sch in m_schema) {
                 this[sch.Name] = sch.Parse(line.Substring(i, sch.Length));
@@ -54,20 +59,29 @@ namespace CR.Metro2 {
                 m_data.TryGetValue(name, out v);
                 return v;
             }
+
             set {
                 m_data[name] = value;
             }
         }
 
         protected void DefineField(IField field) {
-            Guards.ThrowIfNull(field, "field");
-            Guards.Validate(!HasField(field.Name), "field", string.Format("the name [{0}] of the field already exists", field.Name));
             m_schema.Add(field);
             m_dirty = true;
         }
 
         public bool HasField(string name) {
-            return m_schema.Exists(f => string.Equals(name, f.Name));
+            return m_schema.HasField(name);
+        }
+
+        public void ClearData() {
+            m_data.Clear();
+        }
+
+        protected virtual void InitData() {
+            foreach(var field in m_schema) {
+                this[field.Name] = field.DefaultValue;
+            }
         }
     }
 }

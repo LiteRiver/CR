@@ -1,11 +1,19 @@
-﻿<Window x:Class="CR.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CR"
-        mc:Ignorable="d"
-        Title="Westbon Credit Reporter" Height="600" Width="800" WindowStartupLocation="CenterScreen" Icon="app.ico">
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:CR"
+    xmlns:metro2="clr-namespace:CR.Metro2;assembly=CR.Metro2"
+    xmlns:crc="clr-namespace:CR.Controls;assembly=CR.Controls" x:Class="CR.MainWindow"
+    mc:Ignorable="d"
+    Title="Westbon Credit Reporter" 
+    WindowStartupLocation="CenterScreen" 
+    Icon="app.ico" 
+    Height="600" 
+    Width="800"    
+    MinHeight="600" 
+    MinWidth="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -14,17 +22,465 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <DataGrid Grid.Row="0" Grid.Column="0" x:Name="dgMetro2" AutoGenerateColumns="False" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding [RDW]}" Header="RDW" />
-                <DataGridTextColumn Binding="{Binding [Processing Indicator]}" Header="Processing Indicator" />
-                <DataGridTextColumn Binding="{Binding [Time Stamp]}" Header="Time Stamp" />
-                <DataGridTextColumn Binding="{Binding [Reserved-1]}" Header="Reserved-1" />
-                <DataGridTextColumn Binding="{Binding [Identification Number]}" Header="Identification Number" />
-                <DataGridTextColumn Binding="{Binding [Cycle Identifier]}" Header="Cycle Identifier" />
-                <DataGridTextColumn Binding="{Binding [Consumer Account Number]}" Header="Consumer Account Number" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Margin="5" Padding="6,2" Click="Import_Click" >Import</Button>
+        <TabControl  Grid.Row="0" Grid.Column="0">
+            <TabItem Header="Base Segments">
+                <DataGrid x:Name="dgMetro2" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" LoadingRow="dgMetro2_LoadingRow" ItemsSource="{Binding Path=BaseSegments}">
+                    <DataGrid.Resources>
+                        <crc:TermsConverter x:Key="TermsConverter" />
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding [RDW]}" Header="RDW" IsReadOnly="True" />
+                        <DataGridTextColumn Binding="{Binding [Processing Indicator]}" Header="Processing Indicator" IsReadOnly="True" />
+                        <DataGridTextColumn Binding="{Binding [Time Stamp], StringFormat=\{0:MMddyyyyHHmmss\}}" Header="Time Stamp" IsReadOnly="True" />
+                        <DataGridTextColumn Binding="{Binding [Reserved-1]}" Header="Reserved-1" IsReadOnly="True" />
+                        <DataGridTextColumn Binding="{Binding [Identification Number]}" Header="Identification Number">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="MaxLength" Value="20" />
+                                    <Setter Property="CharacterCasing" Value="Upper" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding [Cycle Identifier]}" Header="Cycle Identifier">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="MaxLength" Value="2" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding [Consumer Account Number]}" Header="Consumer Account Number">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="MaxLength" Value="30" />
+                                    <Setter Property="CharacterCasing" Value="Upper" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridComboBoxColumn Header="Portfolio Type" SelectedValueBinding="{Binding [Portfolio Type]}" ItemsSource="{x:Static metro2:Metro2Options.PortfolioType }" DisplayMemberPath="Text" SelectedValuePath="Key" />
+                        <DataGridComboBoxColumn Header="Account Type" SelectedValueBinding="{Binding [Account Type]}" ItemsSource="{x:Static metro2:Metro2Options.AccountType }" DisplayMemberPath="Text" SelectedValuePath="Key" />
+                        <DataGridTemplateColumn Header="Date Opened">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [Date Opened], StringFormat=\{0:MMddyyyy\}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding [Date Opened]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Credit Limit">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [Credit Limit]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <crc:NumericTextBox Text="{Binding [Credit Limit]}" TextWrapping="NoWrap" MaxLength="9" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Highest Credit or Original Loan Amount">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [Highest Credit or Original Loan Amount]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <crc:NumericTextBox Text="{Binding [Highest Credit or Original Loan Amount]}" TextWrapping="NoWrap" MaxLength="9" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Terms Duration">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [Terms Duration]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <crc:NumericTextBox Text="{Binding [Terms Duration], Converter={StaticResource TermsConverter}}" TextWrapping="NoWrap" MaxLength="3" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridComboBoxColumn Header="Terms Frequency" SelectedValueBinding="{Binding [Terms Frequency]}" ItemsSource="{x:Static metro2:Metro2Options.TermsFrequency }" DisplayMemberPath="Text" SelectedValuePath="Key" />
+                        <DataGridTemplateColumn Header="Scheduled Monthly Payment Amount">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [Scheduled Monthly Payment Amount]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <crc:NumericTextBox Text="{Binding [Scheduled Monthly Payment Amount]}" TextWrapping="NoWrap" MaxLength="9" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Actual Payment Amount">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [Actual Payment Amount]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <crc:NumericTextBox Text="{Binding [Actual Payment Amount]}" TextWrapping="NoWrap" MaxLength="9" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridComboBoxColumn Header="Account Status" SelectedValueBinding="{Binding [Account Status]}" ItemsSource="{x:Static metro2:Metro2Options.AccountStatus }" DisplayMemberPath="Text" SelectedValuePath="Key" />
+                        <DataGridComboBoxColumn Header="Payment Rating" SelectedValueBinding="{Binding [Payment Rating]}" ItemsSource="{x:Static metro2:Metro2Options.PaymentRating }" DisplayMemberPath="Text" SelectedValuePath="Key" />
+                        <DataGridTemplateColumn Header="Payment History Profile">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [Payment History Profile]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <Popup Placement="Relative" IsOpen="True" Width="600" Height="400" PopupAnimation="Slide">
+                                        <Border BorderBrush="Gray" Background="LightGray" BorderThickness="3" Padding="5">
+                                            <crc:PaymentHistoryEditor VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="LightGray" History="{Binding [Payment History Profile], Mode=TwoWay}" />
+                                        </Border>
+                                    </Popup>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Binding="{Binding [Special Comment]}" Header="Special Comment">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="MaxLength" Value="2" />
+                                    <Setter Property="CharacterCasing" Value="Upper" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding [Compliance Condition Code]}" Header="Compliance Condition Code">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="MaxLength" Value="2" />
+                                    <Setter Property="CharacterCasing" Value="Upper" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Current Balance">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [Current Balance]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <crc:NumericTextBox Text="{Binding [Current Balance]}" TextWrapping="NoWrap" MaxLength="9" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Amount Past Due">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [Amount Past Due]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <crc:NumericTextBox Text="{Binding [Amount Past Due]}" TextWrapping="NoWrap" MaxLength="9" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Original Charge-off Amount">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [Original Charge-off Amount]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <crc:NumericTextBox Text="{Binding [Original Charge-off Amount]}" TextWrapping="NoWrap" MaxLength="9" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Date of Account Information">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [Date of Account Information], StringFormat=\{0:MMddyyyy\}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding [Date of Account Information]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="FCRA Compliance/Date of First Delinquency">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [FCRA Compliance/Date of First Delinquency], StringFormat=\{0:MMddyyyy\}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding [FCRA Compliance/Date of First Delinquency]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Date Closed">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [Date Closed], StringFormat=\{0:MMddyyyy\}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding [Date Closed]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Date of Last Payment">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [Date of Last Payment], StringFormat=\{0:MMddyyyy\}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding [Date of Last Payment]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridComboBoxColumn Header="Interest Type Indicator" SelectedValueBinding="{Binding [Interest Type Indicator]}" ItemsSource="{x:Static metro2:Metro2Options.InterestTypeIndicator }" DisplayMemberPath="Text" SelectedValuePath="Key" />
+                        <DataGridTextColumn Binding="{Binding [Reserved-2]}" Header="Reserved-2">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="MaxLength" Value="17" />
+                                    <Setter Property="CharacterCasing" Value="Upper" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding [Surname]}" Header="Surname">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="MaxLength" Value="25" />
+                                    <Setter Property="CharacterCasing" Value="Upper" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding [First Name]}" Header="First Name">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="MaxLength" Value="20" />
+                                    <Setter Property="CharacterCasing" Value="Upper" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding [Middle Name]}" Header="Middle Name">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="MaxLength" Value="20" />
+                                    <Setter Property="CharacterCasing" Value="Upper" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding [Generation Code]}" Header="Generation Code">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="MaxLength" Value="1" />
+                                    <Setter Property="CharacterCasing" Value="Upper" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Social Security Number">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [Social Security Number]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <crc:NumericTextBox Text="{Binding [Social Security Number]}" TextWrapping="NoWrap" MaxLength="9" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Date of Birth">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [Date of Birth], StringFormat=\{0:MMddyyyy\}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding [Date of Birth]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Telephone Number">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [Telephone Number]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <crc:NumericTextBox Text="{Binding [Telephone Number]}" TextWrapping="NoWrap" MaxLength="10" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Binding="{Binding [ECOA Code]}" Header="ECOA Code" IsReadOnly="true"/>
+                        <DataGridTextColumn Binding="{Binding [Consumer Information Indicator]}" Header="Consumer Information Indicator">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="MaxLength" Value="2" />
+                                    <Setter Property="CharacterCasing" Value="Upper" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding [Country Code]}" Header="Country Code" IsReadOnly="true" />
+                        <DataGridTextColumn Binding="{Binding [First Line of Address]}" Header="First Line of Address">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="MaxLength" Value="32" />
+                                    <Setter Property="CharacterCasing" Value="Upper" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding [Second Line of Address]}" Header="Second Line of Address">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="MaxLength" Value="32" />
+                                    <Setter Property="CharacterCasing" Value="Upper" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding [City]}" Header="City">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="MaxLength" Value="20" />
+                                    <Setter Property="CharacterCasing" Value="Upper" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridComboBoxColumn Header="State" SelectedValueBinding="{Binding [State]}" ItemsSource="{x:Static metro2:Metro2Options.State }" DisplayMemberPath="Text" SelectedValuePath="Key" />
+                        <DataGridTextColumn Binding="{Binding [Postal/Zip Code]}" Header="Postal/Zip Code">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="MaxLength" Value="9" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding [Address Indicator]}" Header="Address Indicator">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="MaxLength" Value="1" />
+                                    <Setter Property="CharacterCasing" Value="Upper" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridComboBoxColumn Header="Residence Code" SelectedValueBinding="{Binding [Residence Code]}" ItemsSource="{x:Static metro2:Metro2Options.ResidenceCode }" DisplayMemberPath="Text" SelectedValuePath="Key" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Header Segment">
+                <Grid x:Name="gdHeader">
+                    <Grid.Resources>
+                        <Style TargetType="Label">
+                            <Setter Property="HorizontalContentAlignment" Value="Right" />
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Column="0" Grid.Row="0" LastChildFill="True">
+                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"  Width="190">RDW</Label>
+                        <TextBox Text="{Binding Path=HeaderSegment[RDW]}"  IsReadOnly="True" VerticalAlignment="Center" />
+                    </DockPanel>
+                    <DockPanel Grid.Column="0" Grid.Row="1" LastChildFill="True">
+                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Record Identifier</Label>
+                        <TextBox Text="{Binding Path=HeaderSegment[Record Identifier]}"  IsReadOnly="True" VerticalAlignment="Center" />
+                    </DockPanel>
+                    <DockPanel Grid.Column="0" Grid.Row="2" LastChildFill="True">
+                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Cycle Identifier</Label>
+                        <TextBox Text="{Binding Path=HeaderSegment[Cycle Identifier]}"  IsReadOnly="True" VerticalAlignment="Center" />
+                    </DockPanel>
+                    <DockPanel Grid.Column="0" Grid.Row="3" LastChildFill="True">
+                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Innovis Program Identifier</Label>
+                        <TextBox Text="{Binding Path=HeaderSegment[Innovis Program Identifier]}"  VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="10" />
+                    </DockPanel>
+                    <DockPanel Grid.Column="0" Grid.Row="4" LastChildFill="True">
+                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Equifax Program Identifier</Label>
+                        <TextBox Text="{Binding Path=HeaderSegment[Equifax Program Identifier]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="10" />
+                    </DockPanel>
+                    <DockPanel Grid.Column="0" Grid.Row="5" LastChildFill="True">
+                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Experian Program Identifier</Label>
+                        <TextBox Text="{Binding Path=HeaderSegment[Experian Program Identifier]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="5"/>
+                    </DockPanel>
+                    <DockPanel Grid.Column="0" Grid.Row="6" LastChildFill="True">
+                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">TransUnion Program Identifier</Label>
+                        <TextBox Text="{Binding Path=HeaderSegment[TransUnion Program Identifier]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="10" />
+                    </DockPanel>
+                    <DockPanel Grid.Column="0" Grid.Row="7" LastChildFill="True">
+                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Activity Date</Label>
+                        <DatePicker Text="{Binding Path=HeaderSegment[Activity Date], Mode=TwoWay}" VerticalAlignment="Center" />
+                    </DockPanel>
+                    <DockPanel Grid.Column="0" Grid.Row="8" LastChildFill="True">
+                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Date Created</Label>
+                        <DatePicker Text="{Binding Path=HeaderSegment[Date Created], Mode=TwoWay}" VerticalAlignment="Center" />
+                    </DockPanel>
+                    <DockPanel Grid.Column="2" Grid.Row="0" LastChildFill="True">
+                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Program Date</Label>
+                        <DatePicker Text="{Binding Path=HeaderSegment[Program Date], Mode=TwoWay}" VerticalAlignment="Center" />
+                    </DockPanel>
+                    <DockPanel Grid.Column="2" Grid.Row="1" LastChildFill="True">
+                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Program Revision Date</Label>
+                        <DatePicker Text="{Binding Path=HeaderSegment[Program Revision Date], Mode=TwoWay}" VerticalAlignment="Center" />
+                    </DockPanel>
+                    <DockPanel Grid.Column="2" Grid.Row="2" LastChildFill="True">
+                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Reporter Name</Label>
+                        <TextBox Text="{Binding Path=HeaderSegment[Reporter Name]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="40" />
+                    </DockPanel>
+                    <DockPanel Grid.Column="2" Grid.Row="3" LastChildFill="True">
+                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Reporter Address</Label>
+                        <TextBox Text="{Binding Path=HeaderSegment[Reporter Address]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="96" />
+                    </DockPanel>
+                    <DockPanel Grid.Column="2" Grid.Row="4" LastChildFill="True">
+                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Reporter Telephone Number</Label>
+                        <crc:NumericTextBox Text="{Binding Path=HeaderSegment[Reporter Telephone Number]}" VerticalAlignment="Center" MaxLength="10" />
+                    </DockPanel>
+                    <DockPanel Grid.Column="2" Grid.Row="5" LastChildFill="True">
+                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Software Vendor Name</Label>
+                        <TextBox Text="{Binding Path=HeaderSegment[Software Vendor Name]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="40" />
+                    </DockPanel>
+                    <DockPanel Grid.Column="2" Grid.Row="6" LastChildFill="True">
+                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Software Version Number</Label>
+                        <TextBox Text="{Binding Path=HeaderSegment[Software Version Number]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="5" />
+                    </DockPanel>
+                    <DockPanel Grid.Column="2" Grid.Row="7" LastChildFill="True">
+                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">MicroBilt/PRBC Program Identifier</Label>
+                        <TextBox Text="{Binding Path=HeaderSegment[MicroBilt/PRBC Program Identifier]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="10" />
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Trailer Segment"></TabItem>
+        </TabControl>
+
+        <StackPanel FlowDirection="RightToLeft"  VerticalAlignment="Bottom" Orientation="Horizontal" Grid.Row="1" Grid.Column="0" >
+            <Button HorizontalAlignment="Right"  Padding="6,2" Click="Import_Click" Content="Import" Margin="10" />
+            <Button HorizontalAlignment="Right"  Padding="6,2" Click="Export_Click" Content="Export" Margin="10" />
+        </StackPanel>
     </Grid>
 </Window>
