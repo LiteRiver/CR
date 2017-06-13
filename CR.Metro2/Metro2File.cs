@@ -45,22 +45,24 @@ namespace CR.Metro2 {
 
         public void WriteTo(Stream stream) {
             Guards.ThrowIfNull(stream, "stream");
+            UpdateSummary();
 
-            var sWriter = new StreamWriter(stream);
+            var sWriter = new StreamWriter(stream);           
 
             sWriter.WriteLine(Header.ToString());
             Bases.ForEach(b => sWriter.WriteLine(b.ToString()));
-            sWriter.Write(Trailer.ToString());
+            sWriter.WriteLine(Trailer.ToString());
 
             sWriter.Flush();
         }
 
         public override string ToString() {
+            UpdateSummary();
             var str = new StringBuilder();
 
             str.AppendLine(Header.ToString());
             Bases.ForEach(b => str.AppendLine(b.ToString()));
-            str.Append(Trailer.ToString());
+            str.AppendLine(Trailer.ToString());
 
             return str.ToString();
         }

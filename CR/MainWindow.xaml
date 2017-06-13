@@ -382,100 +382,296 @@
                 </DataGrid>
             </TabItem>
             <TabItem Header="Header Segment">
-                <Grid x:Name="gdHeader">
-                    <Grid.Resources>
-                        <Style TargetType="Label">
-                            <Setter Property="HorizontalContentAlignment" Value="Right" />
-                        </Style>
-                    </Grid.Resources>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="5" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <DockPanel Grid.Column="0" Grid.Row="0" LastChildFill="True">
-                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"  Width="190">RDW</Label>
-                        <TextBox Text="{Binding Path=HeaderSegment[RDW]}"  IsReadOnly="True" VerticalAlignment="Center" />
-                    </DockPanel>
-                    <DockPanel Grid.Column="0" Grid.Row="1" LastChildFill="True">
-                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Record Identifier</Label>
-                        <TextBox Text="{Binding Path=HeaderSegment[Record Identifier]}"  IsReadOnly="True" VerticalAlignment="Center" />
-                    </DockPanel>
-                    <DockPanel Grid.Column="0" Grid.Row="2" LastChildFill="True">
-                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Cycle Identifier</Label>
-                        <TextBox Text="{Binding Path=HeaderSegment[Cycle Identifier]}"  IsReadOnly="True" VerticalAlignment="Center" />
-                    </DockPanel>
-                    <DockPanel Grid.Column="0" Grid.Row="3" LastChildFill="True">
-                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Innovis Program Identifier</Label>
-                        <TextBox Text="{Binding Path=HeaderSegment[Innovis Program Identifier]}"  VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="10" />
-                    </DockPanel>
-                    <DockPanel Grid.Column="0" Grid.Row="4" LastChildFill="True">
-                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Equifax Program Identifier</Label>
-                        <TextBox Text="{Binding Path=HeaderSegment[Equifax Program Identifier]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="10" />
-                    </DockPanel>
-                    <DockPanel Grid.Column="0" Grid.Row="5" LastChildFill="True">
-                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Experian Program Identifier</Label>
-                        <TextBox Text="{Binding Path=HeaderSegment[Experian Program Identifier]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="5"/>
-                    </DockPanel>
-                    <DockPanel Grid.Column="0" Grid.Row="6" LastChildFill="True">
-                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">TransUnion Program Identifier</Label>
-                        <TextBox Text="{Binding Path=HeaderSegment[TransUnion Program Identifier]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="10" />
-                    </DockPanel>
-                    <DockPanel Grid.Column="0" Grid.Row="7" LastChildFill="True">
-                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Activity Date</Label>
-                        <DatePicker Text="{Binding Path=HeaderSegment[Activity Date], Mode=TwoWay}" VerticalAlignment="Center" />
-                    </DockPanel>
-                    <DockPanel Grid.Column="0" Grid.Row="8" LastChildFill="True">
-                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Date Created</Label>
-                        <DatePicker Text="{Binding Path=HeaderSegment[Date Created], Mode=TwoWay}" VerticalAlignment="Center" />
-                    </DockPanel>
-                    <DockPanel Grid.Column="2" Grid.Row="0" LastChildFill="True">
-                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Program Date</Label>
-                        <DatePicker Text="{Binding Path=HeaderSegment[Program Date], Mode=TwoWay}" VerticalAlignment="Center" />
-                    </DockPanel>
-                    <DockPanel Grid.Column="2" Grid.Row="1" LastChildFill="True">
-                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Program Revision Date</Label>
-                        <DatePicker Text="{Binding Path=HeaderSegment[Program Revision Date], Mode=TwoWay}" VerticalAlignment="Center" />
-                    </DockPanel>
-                    <DockPanel Grid.Column="2" Grid.Row="2" LastChildFill="True">
-                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Reporter Name</Label>
-                        <TextBox Text="{Binding Path=HeaderSegment[Reporter Name]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="40" />
-                    </DockPanel>
-                    <DockPanel Grid.Column="2" Grid.Row="3" LastChildFill="True">
-                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Reporter Address</Label>
-                        <TextBox Text="{Binding Path=HeaderSegment[Reporter Address]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="96" />
-                    </DockPanel>
-                    <DockPanel Grid.Column="2" Grid.Row="4" LastChildFill="True">
-                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Reporter Telephone Number</Label>
-                        <crc:NumericTextBox Text="{Binding Path=HeaderSegment[Reporter Telephone Number]}" VerticalAlignment="Center" MaxLength="10" />
-                    </DockPanel>
-                    <DockPanel Grid.Column="2" Grid.Row="5" LastChildFill="True">
-                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Software Vendor Name</Label>
-                        <TextBox Text="{Binding Path=HeaderSegment[Software Vendor Name]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="40" />
-                    </DockPanel>
-                    <DockPanel Grid.Column="2" Grid.Row="6" LastChildFill="True">
-                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">Software Version Number</Label>
-                        <TextBox Text="{Binding Path=HeaderSegment[Software Version Number]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="5" />
-                    </DockPanel>
-                    <DockPanel Grid.Column="2" Grid.Row="7" LastChildFill="True">
-                        <Label DockPanel.Dock="Left" VerticalAlignment="Center"   Width="190">MicroBilt/PRBC Program Identifier</Label>
-                        <TextBox Text="{Binding Path=HeaderSegment[MicroBilt/PRBC Program Identifier]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="10" />
-                    </DockPanel>
-                </Grid>
+                <ScrollViewer Padding="0 0 15 0">
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="Label">
+                                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0">RDW</Label>
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=HeaderSegment[RDW]}" IsReadOnly="True" VerticalAlignment="Center" />
+
+                        <Label Grid.Column="0" Grid.Row="1">Record Identifier</Label>
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=HeaderSegment[Record Identifier]}"  IsReadOnly="True" VerticalAlignment="Center" />
+
+                        <Label Grid.Column="0" Grid.Row="2">Cycle Identifier</Label>
+                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=HeaderSegment[Cycle Identifier]}"  IsReadOnly="True" VerticalAlignment="Center" />
+
+                        <Label Grid.Column="0" Grid.Row="3">Innovis Program Identifier</Label>
+                        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=HeaderSegment[Innovis Program Identifier]}"  VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="10" />
+
+                        <Label Grid.Column="0" Grid.Row="4">Equifax Program Identifier</Label>
+                        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=HeaderSegment[Equifax Program Identifier]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="10" />
+
+                        <Label Grid.Column="0" Grid.Row="5">Experian Program Identifier</Label>
+                        <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=HeaderSegment[Experian Program Identifier]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="5"/>
+
+                        <Label Grid.Column="0" Grid.Row="6">TransUnion Program Identifier</Label>
+                        <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=HeaderSegment[TransUnion Program Identifier]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="10" />
+
+                        <Label Grid.Column="0" Grid.Row="7">Activity Date</Label>
+                        <DatePicker Grid.Column="1" Grid.Row="7" Text="{Binding Path=HeaderSegment[Activity Date], Mode=TwoWay}" VerticalAlignment="Center" />
+
+                        <Label Grid.Column="0" Grid.Row="8">Date Created</Label>
+                        <DatePicker Grid.Column="1" Grid.Row="8" Text="{Binding Path=HeaderSegment[Date Created], Mode=TwoWay}" VerticalAlignment="Center" />
+
+                        <Label Grid.Column="0" Grid.Row="9">Program Date</Label>
+                        <DatePicker Grid.Column="1" Grid.Row="9" Text="{Binding Path=HeaderSegment[Program Date], Mode=TwoWay}" VerticalAlignment="Center" />
+
+                        <Label Grid.Column="0" Grid.Row="10">Program Revision Date</Label>
+                        <DatePicker Grid.Column="1" Grid.Row="10" Text="{Binding Path=HeaderSegment[Program Revision Date], Mode=TwoWay}" VerticalAlignment="Center" />
+
+                        <Label Grid.Column="0" Grid.Row="11">Reporter Name</Label>
+                        <TextBox Grid.Column="1" Grid.Row="11" Text="{Binding Path=HeaderSegment[Reporter Name]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="40" />
+
+                        <Label Grid.Column="0" Grid.Row="12">Reporter Address</Label>
+                        <TextBox Grid.Column="1" Grid.Row="12" Text="{Binding Path=HeaderSegment[Reporter Address]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="96" />
+
+                        <Label Grid.Column="0" Grid.Row="13">Reporter Telephone Number</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="13" Text="{Binding Path=HeaderSegment[Reporter Telephone Number]}" VerticalAlignment="Center" MaxLength="10" />
+
+                        <Label Grid.Column="0" Grid.Row="14">Software Vendor Name</Label>
+                        <TextBox Grid.Column="1" Grid.Row="14" Text="{Binding Path=HeaderSegment[Software Vendor Name]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="40" />
+
+                        <Label Grid.Column="0" Grid.Row="15">Software Version Number</Label>
+                        <TextBox Grid.Column="1" Grid.Row="15" Text="{Binding Path=HeaderSegment[Software Version Number]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="5" />
+
+                        <Label Grid.Column="0" Grid.Row="16">MicroBilt/PRBC Program Identifier</Label>
+                        <TextBox Grid.Column="1" Grid.Row="16" Text="{Binding Path=HeaderSegment[MicroBilt/PRBC Program Identifier]}" VerticalAlignment="Center" CharacterCasing="Upper" MaxLength="10" />
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
-            <TabItem Header="Trailer Segment"></TabItem>
+            <TabItem Header="Trailer Segment">
+                <ScrollViewer Padding="0 0 15 0">
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="Label">
+                                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0">RDW</Label>
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=TrailerSegment[RDW]}" IsReadOnly="True" VerticalAlignment="Center" />
+
+                        <Label Grid.Column="0" Grid.Row="1">Record Identifier</Label>
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=TrailerSegment[Record Identifier]}" IsReadOnly="True" VerticalAlignment="Center" />
+
+                        <Label Grid.Column="0" Grid.Row="2">Total Base Records</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=TrailerSegment[Total Base Records]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="3">Reserved-1</Label>
+                        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=TrailerSegment[Reserved-1]}" VerticalAlignment="Center" IsReadOnly="True" MaxLength="9" CharacterCasing="Upper" />
+
+                        <Label Grid.Column="0" Grid.Row="4">Total of Status Code DF</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=TrailerSegment[Total of Status Code DF]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="5">Total Associated Consumer Segments (J1)</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=TrailerSegment[Total Associated Consumer Segments (J1)]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="6">Total Associated Consumer Segments (J2)</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=TrailerSegment[Total Associated Consumer Segments (J2)]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="7">Block Count</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=TrailerSegment[Block Count]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="8">Total of Status Code DA</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="8" Text="{Binding Path=TrailerSegment[Total of Status Code DA]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="9">Total of Status Code 05</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="9" Text="{Binding Path=TrailerSegment[Total of Status Code 05]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="10">Total of Status Code 11</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="10" Text="{Binding Path=TrailerSegment[Total of Status Code 11]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="11">Total of Status Code 13</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="11" Text="{Binding Path=TrailerSegment[Total of Status Code 13]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+
+                        <Label Grid.Column="0" Grid.Row="12">Total of Status Code 61</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="12" Text="{Binding Path=TrailerSegment[Total of Status Code 61]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+
+                        <Label Grid.Column="0" Grid.Row="13">Total of Status Code 62</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="13" Text="{Binding Path=TrailerSegment[Total of Status Code 62]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="14">Total of Status Code 63</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="14" Text="{Binding Path=TrailerSegment[Total of Status Code 63]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="15">Total of Status Code 65</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="15" Text="{Binding Path=TrailerSegment[Total of Status Code 65]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="16">Total of Status Code 71</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="16" Text="{Binding Path=TrailerSegment[Total of Status Code 71]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+
+                        <Label Grid.Column="0" Grid.Row="17">Total of Status Code 78</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="17" Text="{Binding Path=TrailerSegment[Total of Status Code 78]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="18">Total of Status Code 80</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="18" Text="{Binding Path=TrailerSegment[Total of Status Code 80]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="19">Total of Status Code 82</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="19" Text="{Binding Path=TrailerSegment[Total of Status Code 82]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="20">Total of Status Code 83</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="20" Text="{Binding Path=TrailerSegment[Total of Status Code 83]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="21">Total of Status Code 84</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="21" Text="{Binding Path=TrailerSegment[Total of Status Code 84]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="22">Total of Status Code 88</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="22" Text="{Binding Path=TrailerSegment[Total of Status Code 88]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="23">Total of Status Code 89</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="23" Text="{Binding Path=TrailerSegment[Total of Status Code 89]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="24">Total of Status Code 93</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="24" Text="{Binding Path=TrailerSegment[Total of Status Code 93]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="25">Total of Status Code 94</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="25" Text="{Binding Path=TrailerSegment[Total of Status Code 94]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="26">Total of Status Code 95</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="26" Text="{Binding Path=TrailerSegment[Total of Status Code 95]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="27">Total of Status Code 96</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="27" Text="{Binding Path=TrailerSegment[Total of Status Code 96]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="28">Total of Status Code 97</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="28" Text="{Binding Path=TrailerSegment[Total of Status Code 97]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="29">Total of ECOA Code Z (All Segments)</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="29" Text="{Binding Path=TrailerSegment[Total of ECOA Code Z (All Segments)]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="30">Total Employment Segments</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="30" Text="{Binding Path=TrailerSegment[Total Employment Segments]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="31">Total Original Creditor Segments</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="31" Text="{Binding Path=TrailerSegment[Total Original Creditor Segments]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="32">Total Purchased From/Sold To Segments</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="32" Text="{Binding Path=TrailerSegment[Total Purchased From/Sold To Segments]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="33">Total Mortgage Information Segments</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="33" Text="{Binding Path=TrailerSegment[Total Mortgage Information Segments]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="34">Total Specialized Payment Information Segments</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="34" Text="{Binding Path=TrailerSegment[Total Specialized Payment Information Segments]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="35">Total Change Segments</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="35" Text="{Binding Path=TrailerSegment[Total Change Segments]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="36">Total Social Security Numbers (All Segments)</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="36" Text="{Binding Path=TrailerSegment[Total Social Security Numbers (All Segments)]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="37">Total Social Security Numbers (Base Segments)</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="37" Text="{Binding Path=TrailerSegment[Total Social Security Numbers (Base Segments)]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="38">Total Social Security Numbers (J1 Segments)</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="38" Text="{Binding Path=TrailerSegment[Total Social Security Numbers (J1 Segments)]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="39">Total Social Security Numbers (J2 Segments)</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="39" Text="{Binding Path=TrailerSegment[Total Social Security Numbers (J2 Segments)]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="40">Total Dates of Birth (All Segments)</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="40" Text="{Binding Path=TrailerSegment[Total Dates of Birth (All Segments)]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="41">Total Dates of Birth (Base Segments)</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="41" Text="{Binding Path=TrailerSegment[Total Dates of Birth (Base Segments)]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="42">Total Dates of Birth (J1 Segments)</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="42" Text="{Binding Path=TrailerSegment[Total Dates of Birth (J1 Segments)]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="43">Total Dates of Birth (J2 Segments)</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="43" Text="{Binding Path=TrailerSegment[Total Dates of Birth (J2 Segments)]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="44">Total Telephone Numbers (All Segments)</Label>
+                        <crc:NumericTextBox Grid.Column="1" Grid.Row="44" Text="{Binding Path=TrailerSegment[Total Telephone Numbers (All Segments)]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="9" />
+
+                        <Label Grid.Column="0" Grid.Row="45">Reserved-2</Label>
+                        <TextBox Grid.Column="1" Grid.Row="45" Text="{Binding Path=TrailerSegment[Reserved-2]}" IsReadOnly="True" VerticalAlignment="Center" MaxLength="19" />
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
         </TabControl>
 
         <StackPanel FlowDirection="RightToLeft"  VerticalAlignment="Bottom" Orientation="Horizontal" Grid.Row="1" Grid.Column="0" >

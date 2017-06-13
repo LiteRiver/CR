@@ -40,12 +40,22 @@ namespace CR {
             }
         }
 
-        private void dgMetro2_LoadingRow(object sender, DataGridRowEventArgs e) {
-            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+        private void Export_Click(object sender, RoutedEventArgs e) {
+            var dlg = new SaveFileDialog();
+            dlg.DefaultExt = "*.TXT";
+            dlg.Filter = "Text documents (.TXT)|*.TXT";
+            var ret = dlg.ShowDialog();
+            if (ret == true) {
+                using (var stream = new FileStream(dlg.FileName, FileMode.Create)) {
+                    m_metro2File.Export(stream);
+                }
+
+                MessageBox.Show("Export successfully");
+            }
         }
 
-        private void Export_Click(object sender, RoutedEventArgs e) {
-            m_metro2File.HeaderSegment["RDW"] = 5678;
+        private void dgMetro2_LoadingRow(object sender, DataGridRowEventArgs e) {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
         }
     }
 }

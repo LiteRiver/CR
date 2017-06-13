@@ -32,6 +32,10 @@ namespace CR {
             OnPropertyChanged("TrailerSegment");
         }
 
+        public void Export(Stream stream) {
+            m_metro2File.WriteTo(stream);
+        }
+
         protected virtual void OnPropertyChanged(string propertyName) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
