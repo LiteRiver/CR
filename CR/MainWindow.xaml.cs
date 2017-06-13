@@ -32,11 +32,15 @@ namespace CR {
             var dlg = new OpenFileDialog();
             var ret = dlg.ShowDialog();
             if (ret == true) {
-                using (var stream = new FileStream(dlg.FileName, FileMode.Open)) {
-                    m_metro2File.Parse(stream);
-                }
+                try {
+                    using (var stream = new FileStream(dlg.FileName, FileMode.Open)) {
+                        m_metro2File.Parse(stream);
+                    }
 
-                DataContext = m_metro2File;
+                    DataContext = m_metro2File;
+                } catch {
+                    MessageBox.Show("File format is invalid");
+                }                
             }
         }
 

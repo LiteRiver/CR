@@ -20,6 +20,7 @@ namespace CR.Controls {
 
         public NumericTextBox() : base() {
             DataObject.AddPastingHandler(this, new DataObjectPastingEventHandler(OnPasting));
+            InputMethod.SetIsInputMethodEnabled(this, false);
         }
 
         protected override void OnPreviewTextInput(TextCompositionEventArgs e) {
