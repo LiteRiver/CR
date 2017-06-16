@@ -24,10 +24,18 @@
         </Grid.ColumnDefinitions>
         <TabControl  Grid.Row="0" Grid.Column="0">
             <TabItem Header="Base Segments">
-                <DataGrid x:Name="dgMetro2" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" LoadingRow="dgMetro2_LoadingRow" ItemsSource="{Binding Path=BaseSegments}">
+                <DataGrid x:Name="dgMetro2" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" ItemsSource="{Binding Path=BaseSegments}">
                     <DataGrid.Resources>
                         <crc:TermsConverter x:Key="TermsConverter" />
+                        <ContextMenu x:Key="RowMenu" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                            <MenuItem Header="Delete" Click="Delete_Click" />
+                        </ContextMenu>
                     </DataGrid.Resources>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow" >
+                            <Setter Property="ContextMenu" Value="{StaticResource RowMenu}" />
+                        </Style>
+                    </DataGrid.RowStyle>
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding [RDW]}" Header="RDW" IsReadOnly="True" />
@@ -362,21 +370,19 @@
                             </DataGridTextColumn.EditingElementStyle>
                         </DataGridTextColumn>
                         <DataGridComboBoxColumn Header="State" SelectedValueBinding="{Binding [State]}" ItemsSource="{x:Static metro2:Metro2Options.State }" DisplayMemberPath="Text" SelectedValuePath="Key" />
-                        <DataGridTextColumn Binding="{Binding [Postal/Zip Code]}" Header="Postal/Zip Code">
-                            <DataGridTextColumn.EditingElementStyle>
-                                <Style TargetType="TextBox">
-                                    <Setter Property="MaxLength" Value="9" />
-                                </Style>
-                            </DataGridTextColumn.EditingElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding [Address Indicator]}" Header="Address Indicator">
-                            <DataGridTextColumn.EditingElementStyle>
-                                <Style TargetType="TextBox">
-                                    <Setter Property="MaxLength" Value="1" />
-                                    <Setter Property="CharacterCasing" Value="Upper" />
-                                </Style>
-                            </DataGridTextColumn.EditingElementStyle>
-                        </DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Postal/Zip Code">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding [Postal/Zip Code]}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <crc:NumericTextBox Text="{Binding [Postal/Zip Code]}" TextWrapping="NoWrap" MaxLength="9" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridComboBoxColumn Header="Address Indicator" SelectedValueBinding="{Binding [Address Indicator]}" ItemsSource="{x:Static metro2:Metro2Options.AddressIndicator }" DisplayMemberPath="Text" SelectedValuePath="Key" />
                         <DataGridComboBoxColumn Header="Residence Code" SelectedValueBinding="{Binding [Residence Code]}" ItemsSource="{x:Static metro2:Metro2Options.ResidenceCode }" DisplayMemberPath="Text" SelectedValuePath="Key" />
                     </DataGrid.Columns>
                 </DataGrid>

@@ -58,8 +58,13 @@ namespace CR {
             }
         }
 
-        private void dgMetro2_LoadingRow(object sender, DataGridRowEventArgs e) {
-            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+        private void Delete_Click(object sender, RoutedEventArgs e) {
+            var menuItem = (MenuItem)sender;
+            var toRemove = (BaseSegmentViewModel)menuItem.DataContext;
+
+            if (MessageBox.Show("Are you sure?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
+                m_metro2File.Remove(toRemove);
+            }
         }
     }
 }

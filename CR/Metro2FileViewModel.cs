@@ -36,6 +36,12 @@ namespace CR {
             m_metro2File.WriteTo(stream);
         }
 
+        public void Remove(BaseSegmentViewModel baseSegment) {
+            BaseSegments.Remove(baseSegment);
+            m_metro2File.Remove(baseSegment.BaseSegment);
+            OnPropertyChanged("TrailerSegment");
+        }
+
         protected virtual void OnPropertyChanged(string propertyName) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

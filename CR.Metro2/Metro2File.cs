@@ -67,6 +67,11 @@ namespace CR.Metro2 {
             return str.ToString();
         }
 
+        public void Remove(BaseSegment baseSegment) {
+            Bases.Remove(baseSegment);
+            UpdateSummary();
+        }
+
         public void UpdateSummary() {
             Trailer["Total Base Records"] = Bases.Count();
             Trailer["Total of Status Code DF"] = Bases.Count(b => string.Equals(b["Account Status"], "DF"));
