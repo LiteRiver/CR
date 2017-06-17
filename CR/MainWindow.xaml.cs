@@ -24,7 +24,7 @@ namespace CR {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
-            Loaded += (sender, e) => DataContext = new Metro2FileViewModel();
+            DataContext = new Metro2FileViewModel();            
         }
     }
 }

@@ -38,7 +38,14 @@
 
         <TabControl  Grid.Row="1" Grid.Column="0">
             <TabItem Header="Base Segments">
-                <DataGrid x:Name="dgMetro2" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" ItemsSource="{Binding Path=BaseSegments}" SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}">
+                <DataGrid 
+                    x:Name="dgMetro2" 
+                    EnableRowVirtualization="True" 
+                    AutoGenerateColumns="False" 
+                    AlternatingRowBackground="LightGray" 
+                    ItemsSource="{Binding Path=BaseSegments}" 
+                    SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}" 
+                    crc:DataGridBehavior.DisplayRowNumber="True">
                     <DataGrid.Resources>
                         <crc:TermsConverter x:Key="TermsConverter" />
                         <ContextMenu x:Key="RowMenu">
@@ -51,7 +58,7 @@
                         </Style>
                     </DataGrid.RowStyle>
 
-                    <DataGrid.Columns>
+                    <DataGrid.Columns>                        
                         <DataGridTextColumn Binding="{Binding [RDW]}" Header="RDW" IsReadOnly="True" />
                         <DataGridTextColumn Binding="{Binding [Processing Indicator]}" Header="Processing Indicator" IsReadOnly="True" />
                         <DataGridTextColumn Binding="{Binding [Time Stamp], StringFormat=\{0:MMddyyyyHHmmss\}}" Header="Time Stamp" IsReadOnly="True" />

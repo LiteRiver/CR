@@ -111,6 +111,8 @@ namespace CR {
                 m_metro2File.Remove(baseSegment.BaseSegment);
                 OnPropertyChanged("HeaderSegment");
                 OnPropertyChanged("TrailerSegment");
+                OnPropertyChanged("TotalCount");
+                ExportCommand.RaiseCanExecuteChanged();
             }
         }
 
