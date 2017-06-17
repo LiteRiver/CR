@@ -22,49 +22,9 @@ namespace CR {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
-        private Metro2FileViewModel m_metro2File = new Metro2FileViewModel();
-
         public MainWindow() {
             InitializeComponent();
-        }
-
-        private void Import_Click(object sender, RoutedEventArgs e) {
-            var dlg = new OpenFileDialog();
-            var ret = dlg.ShowDialog();
-            if (ret == true) {
-                try {
-                    using (var stream = new FileStream(dlg.FileName, FileMode.Open)) {
-                        m_metro2File.Parse(stream);
-                    }
-
-                    DataContext = m_metro2File;
-                } catch {
-                    MessageBox.Show("File format is invalid");
-                }                
-            }
-        }
-
-        private void Export_Click(object sender, RoutedEventArgs e) {
-            var dlg = new SaveFileDialog();
-            dlg.DefaultExt = "*.TXT";
-            dlg.Filter = "Text documents (.TXT)|*.TXT";
-            var ret = dlg.ShowDialog();
-            if (ret == true) {
-                using (var stream = new FileStream(dlg.FileName, FileMode.Create)) {
-                    m_metro2File.Export(stream);
-                }
-
-                MessageBox.Show("Export successfully");
-            }
-        }
-
-        private void Delete_Click(object sender, RoutedEventArgs e) {
-            var menuItem = (MenuItem)sender;
-            var toRemove = (BaseSegmentViewModel)menuItem.DataContext;
-
-            if (MessageBox.Show("Are you sure?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
-                m_metro2File.Remove(toRemove);
-            }
+            Loaded += (sender, e) => DataContext = new Metro2FileViewModel();
         }
     }
 }

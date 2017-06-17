@@ -5,7 +5,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:CR"
     xmlns:metro2="clr-namespace:CR.Metro2;assembly=CR.Metro2"
-    xmlns:crc="clr-namespace:CR.Controls;assembly=CR.Controls" x:Class="CR.MainWindow"
+    xmlns:crc="clr-namespace:CR.Controls;assembly=CR.Controls" 
+    x:Class="CR.MainWindow"
     mc:Ignorable="d"
     Title="Westbon Credit Reporter" 
     WindowStartupLocation="CenterScreen" 
@@ -13,22 +14,35 @@
     Height="600" 
     Width="800"    
     MinHeight="600" 
-    MinWidth="800">
+    MinWidth="800" 
+    FocusManager.FocusedElement="{Binding ElementName=dgMetro2}">
+    <Window.InputBindings>
+        <KeyBinding Gesture="CTRL+F" Command="{Binding FindCommand}"/>
+    </Window.InputBindings>
+
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <TabControl  Grid.Row="0" Grid.Column="0">
+        <Menu Margin="0 0 0 5">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Import" Command="{Binding ImportCommand}" />
+                <MenuItem Header="_Export" Command="{Binding ExportCommand}" />
+            </MenuItem>
+        </Menu>
+
+        <TabControl  Grid.Row="1" Grid.Column="0">
             <TabItem Header="Base Segments">
-                <DataGrid x:Name="dgMetro2" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" ItemsSource="{Binding Path=BaseSegments}">
+                <DataGrid x:Name="dgMetro2" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" ItemsSource="{Binding Path=BaseSegments}" SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}">
                     <DataGrid.Resources>
                         <crc:TermsConverter x:Key="TermsConverter" />
-                        <ContextMenu x:Key="RowMenu" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-                            <MenuItem Header="Delete" Click="Delete_Click" />
+                        <ContextMenu x:Key="RowMenu">
+                            <MenuItem Header="Remove" Command="{Binding Path=DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType=DataGrid} }" CommandParameter="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                         </ContextMenu>
                     </DataGrid.Resources>
                     <DataGrid.RowStyle>
@@ -680,9 +694,26 @@
             </TabItem>
         </TabControl>
 
-        <StackPanel FlowDirection="RightToLeft"  VerticalAlignment="Bottom" Orientation="Horizontal" Grid.Row="1" Grid.Column="0" >
-            <Button HorizontalAlignment="Right"  Padding="6,2" Click="Import_Click" Content="Import" Margin="10" />
-            <Button HorizontalAlignment="Right"  Padding="6,2" Click="Export_Click" Content="Export" Margin="10" />
-        </StackPanel>
+        <StatusBar Grid.Row="2" Grid.Column="0">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="0" Content="{Binding Filename}" HorizontalAlignment="Stretch" ></StatusBarItem>
+            <Separator Grid.Column="1" />
+            <StatusBarItem Grid.Column="2">
+                <StackPanel FlowDirection="LeftToRight" Orientation="Horizontal">
+                    <TextBlock Text="Total Count: " />
+                    <TextBlock Text="{Binding TotalCount}" />
+                </StackPanel>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>

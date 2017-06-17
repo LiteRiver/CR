@@ -1,0 +1,25 @@
+﻿<Window x:Class="CR.FindWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CR"
+        mc:Ignorable="d"
+        Title="Find an Account"  
+        WindowStyle="ToolWindow" 
+        ResizeMode="NoResize" 
+        ShowInTaskbar="False" 
+        SizeToContent="WidthAndHeight" 
+        Topmost="True" 
+        WindowStartupLocation="CenterOwner" 
+        FocusManager.FocusedElement="{Binding ElementName=tbNumber}">
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding ApplicationCommands.Close}" />
+    </Window.InputBindings>
+        
+    <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15">
+        <Label>Account Number:</Label>
+        <TextBox DockPanel.Dock="Left" Width="200" x:Name="tbNumber" Margin="0 0 5 0" VerticalContentAlignment="Center" />
+        <Button Click="Button_Click" Padding="12 6" IsDefault="True">Find</Button>
+    </DockPanel>
+</Window>
