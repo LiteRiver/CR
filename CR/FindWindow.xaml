@@ -12,14 +12,14 @@
         SizeToContent="WidthAndHeight" 
         Topmost="True" 
         WindowStartupLocation="CenterOwner" 
-        FocusManager.FocusedElement="{Binding ElementName=tbNumber}">
+        FocusManager.FocusedElement="{Binding ElementName=tbFindText}">
     <Window.InputBindings>
-        <KeyBinding Key="Esc" Command="{Binding ApplicationCommands.Close}" />
+        <KeyBinding Key="Esc" Command="{Binding CloseWindowCommand}"  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
     </Window.InputBindings>
         
     <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15">
         <Label>Account Number:</Label>
-        <TextBox DockPanel.Dock="Left" Width="200" x:Name="tbNumber" Margin="0 0 5 0" VerticalContentAlignment="Center" />
-        <Button Click="Button_Click" Padding="12 6" IsDefault="True">Find</Button>
+        <TextBox DockPanel.Dock="Left" x:Name="tbFindText" Width="200" Margin="0 0 5 0" VerticalContentAlignment="Center" Text="{Binding FindText, UpdateSourceTrigger=PropertyChanged}" />
+        <Button Padding="12 6" IsDefault="True" Command="{Binding Path=PerformFindCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">Find</Button>
     </DockPanel>
 </Window>

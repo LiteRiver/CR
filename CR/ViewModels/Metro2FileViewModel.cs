@@ -22,12 +22,16 @@ namespace CR {
         public DelegateCommand ExportCommand { get; private set; }
         public DelegateCommand FindCommand { get; private set; }
         public DelegateCommand<BaseSegmentViewModel> RemoveCommand { get; private set; }
+        public DelegateCommand<Window> PerformFindCommand { get; private set; }
+        public DelegateCommand<Window> CloseWindowCommand { get; private set; }
 
         public BaseSegmentViewModel SelectedItem { get; set; }
 
         private Metro2File m_metro2File;
 
         private string m_filename;
+
+        private string m_findText;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -40,6 +44,8 @@ namespace CR {
             ExportCommand = new DelegateCommand(Export, CanExport);
             FindCommand = new DelegateCommand(Find, CanFind);
             RemoveCommand = new DelegateCommand<BaseSegmentViewModel>(Remove);
+            PerformFindCommand = new DelegateCommand<Window>(PerformFind, CanPerformFind);
+            CloseWindowCommand = new DelegateCommand<Window>(CloseWindow);
         }
 
         public void Parse(Stream stream) {
@@ -56,8 +62,19 @@ namespace CR {
             get { return m_filename; }
             set {
                 if (m_filename != value) {
-                    m_filename = value;
+                    m_filename = value;                    
                     OnPropertyChanged("Filename");
+                }
+            }
+        }
+
+        public string FindText {
+            get { return m_findText; }
+            set {
+                if (m_findText != value) {
+                    m_findText = value;
+                    PerformFindCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged("FindText");
                 }
             }
         }
@@ -80,6 +97,7 @@ namespace CR {
                         Filename = Path.GetFileName(dlg.FileName);
                         OnPropertyChanged(null);
                         ExportCommand.RaiseCanExecuteChanged();
+                        FindCommand.RaiseCanExecuteChanged();
                     }
                 } catch {
                     MessageBox.Show("File format is invalid");
@@ -113,6 +131,7 @@ namespace CR {
                 OnPropertyChanged("TrailerSegment");
                 OnPropertyChanged("TotalCount");
                 ExportCommand.RaiseCanExecuteChanged();
+                FindCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -121,10 +140,31 @@ namespace CR {
         }
 
         private void Find() {
-            var win = new FindWindow();
+            FindText = null;
+            var win = new FindWindow(this);
             if (win.ShowDialog() == true) {
-                SelectedItem = BaseSegments.FirstOrDefault(b => b["Consumer Account Number"].ToString().Trim() == win.AccountNumber.Trim());
+                if (!CanPerformFind(win)) {
+                    return;
+                }
+
+                SelectedItem = BaseSegments.FirstOrDefault(b => b["Consumer Account Number"].ToString().Trim() == FindText.Trim());
                 OnPropertyChanged("SelectedItem");
+            }
+        }
+
+        private bool CanPerformFind(Window win) {
+            return FindText != null && FindText.Trim() != string.Empty;
+        }
+
+        private void PerformFind(Window win) {
+            if (win != null) {
+                win.DialogResult = true;
+            }
+        }
+
+        private void CloseWindow(Window win) {
+            if (win != null) {
+                win.Close();
             }
         }
     }

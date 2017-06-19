@@ -34,6 +34,7 @@
                 <MenuItem Header="_Import" Command="{Binding ImportCommand}" />
                 <MenuItem Header="_Export" Command="{Binding ExportCommand}" />
             </MenuItem>
+            <MenuItem Header="Fin_d" Command="{Binding FindCommand}"></MenuItem>
         </Menu>
 
         <TabControl  Grid.Row="1" Grid.Column="0">
@@ -45,7 +46,8 @@
                     AlternatingRowBackground="LightGray" 
                     ItemsSource="{Binding Path=BaseSegments}" 
                     SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}" 
-                    crc:DataGridBehavior.DisplayRowNumber="True">
+                    crc:DataGridRowNumberBehavior.DisplayRowNumber="True"
+                    local:DataGridRowSelectingBehavior.SelectingItem="{Binding SelectedItem}">
                     <DataGrid.Resources>
                         <crc:TermsConverter x:Key="TermsConverter" />
                         <ContextMenu x:Key="RowMenu">

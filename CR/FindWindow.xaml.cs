@@ -17,18 +17,9 @@ namespace CR {
     /// Interaction logic for FindWindow.xaml
     /// </summary>
     public partial class FindWindow : Window {
-        public FindWindow() {
+        public FindWindow(Metro2FileViewModel metro2File) {
             InitializeComponent();
-        }
-
-        public string AccountNumber { get; set; }
-
-        private void Button_Click(object sender, RoutedEventArgs e) {
-            var txt = tbNumber.Text.Trim();
-            if (!string.Equals(txt, string.Empty)) {
-                AccountNumber = txt;
-                DialogResult = true;
-            }
+            DataContext = metro2File;
         }
     }
 }

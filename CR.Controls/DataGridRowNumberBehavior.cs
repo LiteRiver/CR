@@ -9,16 +9,17 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace CR.Controls {
-    public class DataGridBehavior {
+    public class DataGridRowNumberBehavior {
         public static DependencyProperty DisplayRowNumberProperty = DependencyProperty.RegisterAttached(
             "DisplayRowNumber",
             typeof(bool),
-            typeof(DataGridBehavior),
+            typeof(DataGridRowNumberBehavior),
             new FrameworkPropertyMetadata(false, OnDisplayRowNumberChanged));
 
         public static bool GetDisplayRowNumber(DependencyObject target) {
             return (bool)target.GetValue(DisplayRowNumberProperty);
         }
+
         public static void SetDisplayRowNumber(DependencyObject target, bool value) {
             target.SetValue(DisplayRowNumberProperty, value);
         }

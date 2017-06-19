@@ -53,7 +53,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataGridBehavior.cs" />
+    <Compile Include="DataGridRowNumberBehavior.cs" />
+    <Compile Include="DataGridRowSelectingBehavior.cs" />
     <Compile Include="TermsConverter.cs" />
     <Compile Include="NumericTextBox.cs">
       <SubType>Code</SubType>
