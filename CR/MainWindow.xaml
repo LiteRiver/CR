@@ -43,7 +43,7 @@
                     x:Name="dgMetro2" 
                     EnableRowVirtualization="True" 
                     AutoGenerateColumns="False" 
-                    AlternatingRowBackground="LightGray" 
+                    SelectionMode="Single" 
                     ItemsSource="{Binding Path=BaseSegments}" 
                     SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}" 
                     crc:DataGridRowNumberBehavior.DisplayRowNumber="True"
@@ -57,6 +57,9 @@
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow" >
                             <Setter Property="ContextMenu" Value="{StaticResource RowMenu}" />
+                            <Style.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" />
+                            </Style.Resources>
                         </Style>
                     </DataGrid.RowStyle>
 

@@ -20,18 +20,24 @@ namespace CR {
 
         public DelegateCommand ImportCommand { get; private set; }
         public DelegateCommand ExportCommand { get; private set; }
-        public DelegateCommand FindCommand { get; private set; }
         public DelegateCommand<BaseSegmentViewModel> RemoveCommand { get; private set; }
-        public DelegateCommand<Window> PerformFindCommand { get; private set; }
+        public DelegateCommand FindCommand { get; private set; }
+        public DelegateCommand FindPreviousCommand { get; private set; }
+        public DelegateCommand FindNextCommand { get; private set; }       
+        public DelegateCommand PerformFindCommand { get; private set; }
         public DelegateCommand<Window> CloseWindowCommand { get; private set; }
-
-        public BaseSegmentViewModel SelectedItem { get; set; }
 
         private Metro2File m_metro2File;
 
         private string m_filename;
 
         private string m_findText;
+
+        private List<BaseSegmentViewModel> m_findedItems;
+
+        private int m_findedItemIndex = -1;
+
+        private BaseSegmentViewModel m_selectedItem;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -42,9 +48,11 @@ namespace CR {
 
             ImportCommand = new DelegateCommand(Import);
             ExportCommand = new DelegateCommand(Export, CanExport);
-            FindCommand = new DelegateCommand(Find, CanFind);
             RemoveCommand = new DelegateCommand<BaseSegmentViewModel>(Remove);
-            PerformFindCommand = new DelegateCommand<Window>(PerformFind, CanPerformFind);
+            FindCommand = new DelegateCommand(Find, CanFind);           
+            PerformFindCommand = new DelegateCommand(PerformFind, CanPerformFind);
+            FindPreviousCommand = new DelegateCommand(FindPrevious, CanFindPrevious);
+            FindNextCommand = new DelegateCommand(FindNext, CanFindNext);
             CloseWindowCommand = new DelegateCommand<Window>(CloseWindow);
         }
 
@@ -62,7 +70,7 @@ namespace CR {
             get { return m_filename; }
             set {
                 if (m_filename != value) {
-                    m_filename = value;                    
+                    m_filename = value;
                     OnPropertyChanged("Filename");
                 }
             }
@@ -75,6 +83,36 @@ namespace CR {
                     m_findText = value;
                     PerformFindCommand.RaiseCanExecuteChanged();
                     OnPropertyChanged("FindText");
+                }
+            }
+        }
+
+        public List<BaseSegmentViewModel> FindedItems {
+            get { return m_findedItems; }
+            set {
+                if (m_findedItems != value) {
+                    m_findedItems = value;
+                    OnPropertyChanged("FindedItems");
+                }
+            }
+        }
+
+        public int FindedItemIndex {
+            get { return m_findedItemIndex; }
+            set {
+                if (m_findedItemIndex != value) {
+                    m_findedItemIndex = value;
+                    OnPropertyChanged("FindedItemIndex");
+                }
+            }
+        }
+
+        public BaseSegmentViewModel SelectedItem {
+            get { return m_selectedItem; }
+            set {
+                if (m_selectedItem != value) {
+                    m_selectedItem = value;
+                    OnPropertyChanged("SelectedItem");
                 }
             }
         }
@@ -142,24 +180,65 @@ namespace CR {
         private void Find() {
             FindText = null;
             var win = new FindWindow(this);
-            if (win.ShowDialog() == true) {
-                if (!CanPerformFind(win)) {
-                    return;
-                }
-
-                SelectedItem = BaseSegments.FirstOrDefault(b => b["Consumer Account Number"].ToString().Trim() == FindText.Trim());
-                OnPropertyChanged("SelectedItem");
-            }
+            win.ShowDialog();
         }
 
-        private bool CanPerformFind(Window win) {
+        private bool CanPerformFind() {
             return FindText != null && FindText.Trim() != string.Empty;
         }
 
-        private void PerformFind(Window win) {
-            if (win != null) {
-                win.DialogResult = true;
+        private void PerformFind() {
+            if (!CanPerformFind()) {
+                return;
             }
+
+            var text = FindText.Trim();
+
+            FindedItems = BaseSegments
+                .Where(b => b["Consumer Account Number"].ToString().Contains(text) ||
+                    b["Social Security Number"].ToString().Contains(text) ||
+                    b["Surname"].ToString().Contains(text) ||
+                    b["First Name"].ToString().Contains(text))
+                .ToList();
+
+            if (FindedItems.Count > 0) {
+                FindedItemIndex = 0;
+                SelectedItem = FindedItems[0];
+            } else {
+                FindedItemIndex = -1;
+                SelectedItem = null;
+            }
+
+            FindPreviousCommand.RaiseCanExecuteChanged();
+            FindNextCommand.RaiseCanExecuteChanged();
+        }
+
+        private bool CanFindNext() {
+            return m_findedItems != null && m_findedItemIndex < m_findedItems.Count - 1;
+        }
+
+        private void FindNext() {
+            if (!CanFindNext()) {
+                return;
+            }
+
+            SelectedItem = FindedItems[++FindedItemIndex];
+            FindPreviousCommand.RaiseCanExecuteChanged();
+            FindNextCommand.RaiseCanExecuteChanged();
+        }
+
+        private bool CanFindPrevious() {
+            return m_findedItems != null && m_findedItemIndex > 0;
+        }
+
+        private void FindPrevious() {
+            if (!CanFindPrevious()) {
+                return;
+            }
+
+            SelectedItem = FindedItems[--FindedItemIndex];
+            FindPreviousCommand.RaiseCanExecuteChanged();
+            FindNextCommand.RaiseCanExecuteChanged();
         }
 
         private void CloseWindow(Window win) {

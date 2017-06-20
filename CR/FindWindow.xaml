@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CR"
+        xmlns:crc="clr-namespace:CR.Controls;assembly=CR.Controls" 
         mc:Ignorable="d"
         Title="Find an Account"  
         WindowStyle="ToolWindow" 
@@ -15,11 +16,49 @@
         FocusManager.FocusedElement="{Binding ElementName=tbFindText}">
     <Window.InputBindings>
         <KeyBinding Key="Esc" Command="{Binding CloseWindowCommand}"  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
+        <KeyBinding Key="Up" Command="{Binding FindPreviousCommand}" />
+        <KeyBinding Key="Down" Command="{Binding FindNextCommand}" />
     </Window.InputBindings>
-        
-    <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15">
-        <Label>Account Number:</Label>
-        <TextBox DockPanel.Dock="Left" x:Name="tbFindText" Width="200" Margin="0 0 5 0" VerticalContentAlignment="Center" Text="{Binding FindText, UpdateSourceTrigger=PropertyChanged}" />
-        <Button Padding="12 6" IsDefault="True" Command="{Binding Path=PerformFindCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}">Find</Button>
-    </DockPanel>
+    <Window.Resources>
+        <crc:IndexToNumberConverter x:Key="IndexToNumberConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15">
+            <Label VerticalContentAlignment="Center">Account Number:</Label>
+            <TextBox DockPanel.Dock="Left" x:Name="tbFindText" Width="200" Margin="0 0 5 0" VerticalContentAlignment="Center" Text="{Binding FindText, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Up" Command="{Binding FindPreviousCommand}" />
+                    <KeyBinding Key="Down" Command="{Binding FindNextCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
+            <Button Padding="12 6" IsDefault="True" Command="{Binding PerformFindCommand}">Find</Button>
+            <DockPanel>
+                <Button Content="Previous" DockPanel.Dock="Top" Command="{Binding FindPreviousCommand}" />
+                <Button Content="Next" DockPanel.Dock="Bottom" Command="{Binding FindNextCommand}" />
+            </DockPanel>
+        </DockPanel>
+        <StatusBar Grid.Row="1">
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Founded: " />
+                    <TextBlock Text="{Binding FindedItems.Count}" />
+                </StackPanel>
+            </StatusBarItem>
+            <Separator />
+            <StatusBarItem>
+                <StatusBarItem>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Current: " />
+                        <TextBlock Text="{Binding FindedItemIndex, Converter={StaticResource IndexToNumberConverter}}" />
+                    </StackPanel>
+                </StatusBarItem>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
 </Window>

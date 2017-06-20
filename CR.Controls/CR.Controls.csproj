@@ -53,9 +53,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataGridRowNumberBehavior.cs" />
-    <Compile Include="DataGridRowSelectingBehavior.cs" />
-    <Compile Include="TermsConverter.cs" />
+    <Compile Include="Behaviors\DataGridRowNumberBehavior.cs" />
+    <Compile Include="Behaviors\DataGridRowSelectingBehavior.cs" />
+    <Compile Include="Converters\TermsConverter.cs" />
+    <Compile Include="Converters\IndexToNumberConverter.cs" />
     <Compile Include="NumericTextBox.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -101,9 +102,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="app.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
