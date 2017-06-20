@@ -35,7 +35,7 @@
                 <TextBox.InputBindings>
                     <KeyBinding Key="Up" Command="{Binding FindPreviousCommand}" />
                     <KeyBinding Key="Down" Command="{Binding FindNextCommand}" />
-                </TextBox.InputBindings>
+                </TextBox.InputBindings>                
             </TextBox>
             <Button Padding="12 6" IsDefault="True" Command="{Binding PerformFindCommand}">Find</Button>
             <DockPanel>
@@ -47,7 +47,14 @@
             <StatusBarItem>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Founded: " />
-                    <TextBlock Text="{Binding FindedItems.Count}" />
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <PriorityBinding>
+                                <Binding Path="FindedItems.Count" />
+                                <Binding Source="0" />
+                            </PriorityBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
                 </StackPanel>
             </StatusBarItem>
             <Separator />

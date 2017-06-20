@@ -178,7 +178,14 @@ namespace CR {
         }
 
         private void Find() {
+            if (!CanFind()) {
+                return;
+            }
+
             FindText = null;
+            FindedItems = null;
+            FindedItemIndex = -1;
+
             var win = new FindWindow(this);
             win.ShowDialog();
         }
