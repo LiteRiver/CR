@@ -31,7 +31,7 @@
 
         <DockPanel Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15">
             <Label VerticalContentAlignment="Center">Account Number:</Label>
-            <TextBox DockPanel.Dock="Left" x:Name="tbFindText" Width="200" Margin="0 0 5 0" VerticalContentAlignment="Center" Text="{Binding FindText, UpdateSourceTrigger=PropertyChanged}">
+            <TextBox DockPanel.Dock="Left" x:Name="tbFindText" Width="200" Margin="0 0 5 0" VerticalContentAlignment="Center" Text="{Binding FindText, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper">
                 <TextBox.InputBindings>
                     <KeyBinding Key="Up" Command="{Binding FindPreviousCommand}" />
                     <KeyBinding Key="Down" Command="{Binding FindNextCommand}" />

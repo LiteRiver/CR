@@ -187,7 +187,7 @@ namespace CR {
             FindedItemIndex = -1;
 
             var win = new FindWindow(this);
-            win.ShowDialog();
+            win.Show();
         }
 
         private bool CanPerformFind() {
